@@ -1,0 +1,55 @@
+.sidebar {
+    width: 237px;
+    position: fixed;
+    height: 100%;
+    background-color: white;
+    padding: 20px 0;
+
+    .profileSection {
+        
+        .profileImage {
+            width: 86.1px;
+            height: 85px;
+            border-radius: 100%;
+            margin: 0 auto;
+            background-size: cover;
+            background-position: center;
+        }
+
+        h5 {
+            text-align: center;
+        }
+    }
+
+    .sidebarItem {
+        height: 45px;
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    .sidebarItemActive {
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 53px;
+            z-index: -1;
+            background-color: #48A09B;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+    }
+
+    .sidebarIcon {
+        padding: 0 20px 0 25px;
+    }
+
+    .sidebarIconActive {
+        color: #fff;
+    }
+}
+
