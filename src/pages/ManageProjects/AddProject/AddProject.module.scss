@@ -2,7 +2,15 @@
     background-color: #fff;
     border-radius: 8px;
     padding: 40px;
+}
 
+.ButtonWrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.CardHeader {
     h4 {
         margin: 0;
         font-size: 18px;
@@ -15,6 +23,11 @@
     }
 }
 
+.Divider {
+    border: none;
+    border-top: 1px solid #ededed;
+}
+
 .FormWrapper {
     margin-top: 35px;
     display: flex;
@@ -23,12 +36,6 @@
 
 .FormCol {
     width: 48%;
-}
-
-.ButtonWrapper {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
 }
 
 .PageLocation {

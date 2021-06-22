@@ -8,8 +8,10 @@ const AddProject = () => {
             <p className={styles.PageLocation}>Manage Projects &#x3e; Add New Project</p>
 
             <div className={styles.AddProjectCard}>
-                <h4>Add Project</h4>
-                <p>Let’s get you all setup. Please tell a bit about your project.</p>
+                <div className={styles.CardHeader}>
+                    <h4>Add Project</h4>
+                    <p>Let’s get you all setup. Please tell a bit about your project.</p>
+                </div>
 
                 <div className={styles.FormWrapper}>
                     <div className={styles.FormCol}>
