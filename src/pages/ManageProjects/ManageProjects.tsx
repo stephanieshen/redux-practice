@@ -14,14 +14,16 @@ const ManageProjects = () => {
     }
 
     return (
-        <div className={styles.manageProjects}>
-            <div className={styles.header}>
+        <div className={styles.ManageProjects}>
+            <div className={styles.Header}>
                 <h3>Hello, Shen!</h3>
                 <Search />
             </div>
-            <Button type="button" handleClick={addProject}>
-                Add New Project
-            </Button>
+            <div className={styles.ButtonWrapper}>
+                <Button type="button" clicked={addProject} classes={['Primary']}>
+                    Add New Project
+                </Button>
+            </div>
             <ProjectsList />
         </div>
     )

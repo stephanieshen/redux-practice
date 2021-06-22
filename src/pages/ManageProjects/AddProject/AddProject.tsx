@@ -3,7 +3,7 @@ import styles from './AddProject.module.scss';
 
 const AddProject = () => {
     return (
-        <div className={styles.addProject}>
+        <div className={styles.AddProject}>
             <h4>Add Project</h4>
             <p>Let’s get you all setup. Please tell a bit about your project.</p>
 

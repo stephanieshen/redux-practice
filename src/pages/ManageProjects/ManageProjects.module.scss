@@ -1,6 +1,12 @@
-.manageProjects {
+.ManageProjects {
+
+    .ButtonWrapper {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 2em;
+    }
  
-    .header {
+    .Header {
         margin: 50px 15px;
         display: flex;
         align-items: center;

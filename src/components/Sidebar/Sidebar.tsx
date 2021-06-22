@@ -6,36 +6,36 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Sidebar = () => {
     return (
-        <div className={styles.sidebar}>
-            <div className={styles.profileSection}>
+        <div className={styles.Sidebar}>
+            <div className={styles.ProfileSection}>
                 <div
-                 className={styles.profileImage} 
+                 className={styles.ProfileImage} 
                  style={{ backgroundImage: `url(${profileImage})` }} 
                 />
                 <h5>Stephanie Shen Sabado</h5>
             </div>
 
             <div>
-                <div className={`${styles.sidebarItem} ${styles.sidebarItemActive}`}>
+                <div className={`${styles.SidebarItem} ${styles.SidebarItemActive}`}>
                     <FontAwesomeIcon
                      icon={faProjectDiagram} 
-                     className={`${styles.sidebarIcon} ${styles.sidebarIconActive}`} 
+                     className={`${styles.SidebarIcon} ${styles.SidebarIconActive}`} 
                     />
                     <label>Manage Projects</label>
                 </div>
 
-                <div className={styles.sidebarItem}>
+                <div className={styles.SidebarItem}>
                     <FontAwesomeIcon
                      icon={faUserFriends} 
-                     className={styles.sidebarIcon} 
+                     className={styles.SidebarIcon} 
                     />
                     <label>Manage User</label>
                 </div>
 
-                <div className={styles.sidebarItem}>
+                <div className={styles.SidebarItem}>
                     <FontAwesomeIcon
                      icon={faCog} 
-                     className={styles.sidebarIcon} 
+                     className={styles.SidebarIcon} 
                     />
                     <label>Settings</label>
                 </div>

@@ -2,8 +2,8 @@ import styles from './Search.module.scss';
 
 const Search = () => {
     return (
-        <div className={styles.search}>
-            <input type="text" placeholder="Search Project" className={styles.searchInput} />
+        <div className={styles.Search}>
+            <input type="text" placeholder="Search Project" className={styles.SearchInput} />
         </div>
     )
 }

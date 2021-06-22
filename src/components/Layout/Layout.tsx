@@ -9,9 +9,9 @@ import AddProject from '../../pages/ManageProjects/AddProject/AddProject';
 
 const Layout = (props) => {
     return (
-        <div className={styles.layout}>
+        <div className={styles.Layout}>
             <Sidebar />
-            <main className={styles.main}>
+            <main className={styles.Main}>
                 {props.children}
                 
                 <Switch>

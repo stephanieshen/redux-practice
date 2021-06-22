@@ -6,18 +6,18 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
 const Card = () => {
     return (
-        <div className={styles.card}>
+        <div className={styles.Card}>
             <FontAwesomeIcon
              icon={faEllipsisV} 
-             className={styles.ellipsisH} 
+             className={styles.EllipsisH} 
             />
 
-            <img src={dummyLogo} alt="dummyLogo" className={styles.logo} />
-            <div className={styles.textWrapper}>
-                <label className={styles.projectName}>
+            <img src={dummyLogo} alt="dummyLogo" className={styles.Logo} />
+            <div className={styles.TextWrapper}>
+                <label className={styles.ProjectName}>
                     Project Name
                 </label>
-                <span className={styles.lastUpdate}>
+                <span className={styles.LastUpdate}>
                     Updated last: Jun 20 2021
                 </span>
             </div>
