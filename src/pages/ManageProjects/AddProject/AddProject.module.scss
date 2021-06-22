@@ -1,4 +1,39 @@
-.AddProject {
+.AddProjectCard {
     background-color: #fff;
     border-radius: 8px;
+    padding: 40px;
+
+    h4 {
+        margin: 0;
+        font-size: 18px;
+        font-family: 'Mulish-Bold';
+    }
+
+    p {
+        font-size: 14px;
+        color: #2D2D2D;
+    }
+}
+
+.FormWrapper {
+    margin-top: 35px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.FormCol {
+    width: 48%;
+}
+
+.ButtonWrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.PageLocation {
+    color: rgba(45, 45, 45, 0.43);
+    font-family: 'Mulish-Bold';
+    font-size: 14px;
+    margin: 50px 0 40px;
 }

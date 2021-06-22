@@ -21,7 +21,7 @@ const FormField = (props) => {
     return (
         <div>
             <label className={styles.Label}>{props.label}</label>
-            <div>
+            <div className={styles.FieldWrapper}>
                 {field(props.type)}
             </div>
         </div>
