@@ -1,3 +1,5 @@
+import styles from './InputText.module.scss';
+
 import PropTypes from 'prop-types';
 
 const InputText = (props) => {
@@ -5,6 +7,7 @@ const InputText = (props) => {
         <input
          type="text" 
          placeholder={props.placeholder}
+         className={styles.InputText}
         />
     )
 }

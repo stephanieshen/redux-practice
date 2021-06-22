@@ -1,6 +1,8 @@
+import styles from './Textarea.module.scss';
+
 const Textarea = () => {
     return (
-        <textarea />
+        <textarea className={styles.TextArea} rows={8} />
     )
 }
 

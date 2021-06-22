@@ -1,0 +1,10 @@
+.Datepicker {
+    border: 1px solid #D7D7D7;
+    box-sizing: border-box;
+    border-radius: 4px;
+    height: 42px;
+
+    &:focus {
+        outline: none;
+    }
+}

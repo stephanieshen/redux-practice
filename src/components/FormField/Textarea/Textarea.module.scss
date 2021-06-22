@@ -1,0 +1,10 @@
+.TextArea {
+    border: 1px solid #D7D7D7;
+    box-sizing: border-box;
+    border-radius: 4px;
+    resize: none;
+
+    &:focus {
+        outline: none;
+    }
+}

@@ -3,6 +3,8 @@ import Textarea from "./Textarea/Textarea";
 import PropTypes from 'prop-types';
 import Datepicker from "./Datepicker/Datepicker";
 
+import styles from './FormField.module.scss';
+
 const FormField = (props) => {
 
     const field = (type: string): any => {
@@ -18,7 +20,7 @@ const FormField = (props) => {
 
     return (
         <div>
-            <label>{props.label}</label>
+            <label className={styles.Label}>{props.label}</label>
             <div>
                 {field(props.type)}
             </div>
