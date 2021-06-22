@@ -8,12 +8,14 @@ const InputText = (props) => {
          type="text" 
          placeholder={props.placeholder}
          className={styles.InputText}
+         onChange={props.changed}
         />
     )
 }
 
 InputText.propTypes = {
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    changed: PropTypes.func
 }
 
 

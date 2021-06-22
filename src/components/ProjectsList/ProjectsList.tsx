@@ -6,8 +6,8 @@ const ProjectsList = () => {
     const projects = [1, 2, 3, 4, 5];
     return (
         <div className={styles.ProjectsList}>
-            {projects.map(() => (
-                <Card />
+            {projects.map((project, index) => (
+                <Card key={index} />
             ))}
         </div>
     )

@@ -10,11 +10,24 @@ const FormField = (props) => {
     const field = (type: string): any => {
         switch (type) {
             case 'text':
-                return <InputText placeholder={props.label} />;
+                return (
+                    <InputText
+                        placeholder={props.label} 
+                        changed={props.changed} 
+                    />
+                );
             case 'textarea':
-                return <Textarea />;
+                return (
+                    <Textarea
+                        changed={props.changed} 
+                    />
+                );
             case 'date':
-                return <Datepicker />
+                return (
+                    <Datepicker
+                        changed={props.changed} 
+                    />
+                )
         }
     }
 
@@ -30,7 +43,8 @@ const FormField = (props) => {
 
 FormField.propTypes = {
     label: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired
+    type: PropTypes.string.isRequired,
+    changed: PropTypes.func
 }
 
 
