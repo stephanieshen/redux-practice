@@ -1,0 +1,16 @@
+import Card from "../Card/Card"
+
+import styles from './ProjectsList.module.scss';
+
+const ProjectsList = () => {
+    const projects = [1, 2, 3, 4, 5];
+    return (
+        <div className={styles.projectsList}>
+            {projects.map(() => (
+                <Card />
+            ))}
+        </div>
+    )
+}
+
+export default ProjectsList;
