@@ -12,15 +12,17 @@ import { getProjects } from "../../store/Project/project-actions";
 const ManageProjects = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const projects = useSelector((state: RootStateOrAny) => state.project.projects);
+    const projects = useSelector((state: RootStateOrAny) => state.projects);
 
     const addProject = (): void => {
         history.push('/manage-projects/add');
     }
 
     useEffect(() => {
-        dispatch(getProjects());
-    }, [dispatch]);
+        if (!projects.changed) {
+            dispatch(getProjects());
+        }
+    }, [projects.changed, dispatch]);
 
     return (
         <div className={styles.ManageProjects}>
@@ -33,7 +35,7 @@ const ManageProjects = () => {
                     Add New Project
                 </Button>
             </div>
-            <ProjectsList projects={projects} />
+            <ProjectsList projects={projects.projects} />
         </div>
     )
 }

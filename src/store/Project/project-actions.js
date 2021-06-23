@@ -27,19 +27,18 @@ export const getProjects = () => {
 export const addProject = (project) => {
     return async (dispatch) => {
         const addProjectData = async () => {
-            const response = await fetch(
+            await fetch(
                 'https://redux-practice-b3796-default-rtdb.firebaseio.com/projects.json', 
                 { 
                     method: 'POST', 
                     body: JSON.stringify(project) 
                 }
             );
-
-            return await response.json();
         }
 
         try {
             await addProjectData();
+            dispatch(projectActions.addProject(project));
         } catch (error) {
             addProjectData.catch(() => {
                 alert('error adding project');

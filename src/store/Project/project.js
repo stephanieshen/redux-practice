@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const projectState = {
-    projects: []
+    projects: [],
+    changed: false
 }
 
 const projectSlice = createSlice({
@@ -9,19 +10,18 @@ const projectSlice = createSlice({
     initialState: projectState,
     reducers: {
         setItems(state, action) {
-            const projects = Object.keys(action.payload).reduce((acc, key) => {
-                acc.push({
-                    id: key,
-                    title: action.payload[key].title,
-                    description: action.payload[key].description,
-                    dateStarted: action.payload[key].dateStarted,
-                    developers: action.payload[key].developers
-                })
-                return acc;
-            }, []);
+            const projects = Object.keys(action.payload)
+                .reduce((acc, key) => {
+                    acc.push({ 
+                        id: key, 
+                        ...action.payload[key] 
+                    });
+                    return acc;
+                }, []);
             state.projects = projects;
         },
         addProject(state, action) {
+            state.changed = true;
             state.projects.push(action.payload)
         }
     }
