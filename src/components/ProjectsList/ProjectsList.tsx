@@ -2,15 +2,20 @@ import Card from "../Card/Card"
 
 import styles from './ProjectsList.module.scss';
 
-const ProjectsList = () => {
-    const projects = [1, 2, 3, 4, 5];
+import PropTypes from 'prop-types';
+
+const ProjectsList = (props) => {
     return (
         <div className={styles.ProjectsList}>
-            {projects.map((project, index) => (
-                <Card key={index} />
+            {props.projects.map((project, index) => (
+                <Card key={index} project={project} />
             ))}
         </div>
     )
+}
+
+ProjectsList.propTypes = {
+    projects: PropTypes.any.isRequired
 }
 
 export default ProjectsList;

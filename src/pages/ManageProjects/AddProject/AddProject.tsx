@@ -4,13 +4,16 @@ import { Formik, Field, Form } from 'formik';
 import styles from './AddProject.module.scss';
 import { Project } from '../../../models/projects.model';
 import { useDispatch } from 'react-redux';
-import { projectActions } from '../../../store/Project/project';
+import { useHistory } from "react-router-dom";
+import { addProject } from '../../../store/Project/project-actions';
 
 const AddProject = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const submit = (values: Project): void => {
-        dispatch(projectActions.addProject(values))
+        dispatch(addProject(values));
+        history.goBack();
     }
 
     return (

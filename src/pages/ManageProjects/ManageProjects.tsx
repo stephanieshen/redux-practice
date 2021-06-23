@@ -5,13 +5,22 @@ import Search from "../../components/Search/Search";
 import { useHistory } from "react-router-dom";
 
 import styles from './ManageProjects.module.scss';
+import { useEffect } from "react";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+import { getProjects } from "../../store/Project/project-actions";
 
 const ManageProjects = () => {
+    const dispatch = useDispatch();
     const history = useHistory();
+    const projects = useSelector((state: RootStateOrAny) => state.project.projects);
 
     const addProject = (): void => {
         history.push('/manage-projects/add');
     }
+
+    useEffect(() => {
+        dispatch(getProjects());
+    }, [dispatch]);
 
     return (
         <div className={styles.ManageProjects}>
@@ -24,7 +33,7 @@ const ManageProjects = () => {
                     Add New Project
                 </Button>
             </div>
-            <ProjectsList />
+            <ProjectsList projects={projects} />
         </div>
     )
 }
