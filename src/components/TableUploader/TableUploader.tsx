@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,19 +9,29 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDownload, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
-import Button from '../Button/Button';
+import { faDownload, faEye, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 
+import Button from '../Button/Button';
+import ModalComponent from '../Modal/Modal';
 import styles from './TableUploader.module.scss';
 
-const TableUploader = () => {
-    const useStyles = makeStyles({
-        table: {
-          minWidth: 650,
-        },
-    });
+const useStyles = makeStyles({
+    table: {
+      minWidth: 650,
+    },
+});
 
+const TableUploader = () => {
     const classes = useStyles();
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+    const openUploadModal = () => {
+        setIsModalOpen(true);
+    }
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    }
 
     const files = [
         {
@@ -43,46 +55,65 @@ const TableUploader = () => {
     ];
 
     return (
-        <TableContainer elevation={0} component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Files</TableCell>
-                        <TableCell align="right">Date Uploaded</TableCell>
-                        <TableCell align="right">Uploaded By</TableCell>
-                        <TableCell align="right"></TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {files.map((file) => (
-                        <TableRow key={file.id}>
-                            <TableCell component="th" scope="row">
-                                {file.filename}
-                            </TableCell>
-                            <TableCell align="right">{file.dateUploaded}</TableCell>
-                            <TableCell align="right">{file.uploadedBy}</TableCell>
+        <>
+            <TableContainer elevation={0} component={Paper}>
+                <Table className={classes.table} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Files</TableCell>
+                            <TableCell align="right">Date Uploaded</TableCell>
+                            <TableCell align="right">Uploaded By</TableCell>
                             <TableCell align="right">
-                                <div className={styles.ActionButton}>
-                                    <Button type="button" classes={['Secondary', 'Small']}>
-                                        <FontAwesomeIcon icon={faEye} />
-                                    </Button>
-                                </div>
-                                <div className={styles.ActionButton}>
-                                    <Button type="button" classes={['Secondary', 'Small']}>
-                                        <FontAwesomeIcon icon={faDownload} />
-                                    </Button>
-                                </div>
-                                <div className={styles.ActionButton}>
-                                    <Button type="button" classes={['Secondary', 'Small']}>
-                                        <FontAwesomeIcon icon={faTrash} />
-                                    </Button>
-                                </div>
+                                <Button
+                                    type="button" 
+                                    classes={['Primary', 'Small']}
+                                    clicked={openUploadModal}
+                                >
+                                    <FontAwesomeIcon icon={faPlus} />
+                                </Button>
                             </TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {files.map((file) => (
+                            <TableRow key={file.id}>
+                                <TableCell component="th" scope="row">
+                                    {file.filename}
+                                </TableCell>
+                                <TableCell align="right">
+                                    {file.dateUploaded}
+                                </TableCell>
+                                <TableCell align="right">
+                                    {file.uploadedBy}
+                                </TableCell>
+                                <TableCell align="right">
+                                    <div className={styles.ActionButton}>
+                                        <Button type="button" classes={['Secondary', 'Small']}>
+                                            <FontAwesomeIcon icon={faEye} />
+                                        </Button>
+                                    </div>
+                                    <div className={styles.ActionButton}>
+                                        <Button type="button" classes={['Secondary', 'Small']}>
+                                            <FontAwesomeIcon icon={faDownload} />
+                                        </Button>
+                                    </div>
+                                    <div className={styles.ActionButton}>
+                                        <Button type="button" classes={['Secondary', 'Small']}>
+                                            <FontAwesomeIcon icon={faTrash} />
+                                        </Button>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+
+            <ModalComponent isOpen={isModalOpen} handleClose={closeModal}>
+                <h2 id="transition-modal-title">Transition modal</h2>
+                <p id="transition-modal-description">react-transition-group animates me.</p>
+            </ModalComponent>
+        </>
     )
 }
 
