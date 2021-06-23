@@ -1,0 +1,7 @@
+.ActionButton {
+    display: inline-block;
+
+    &:not(:last-of-type) {
+        margin-right: 5px;
+    }
+}
