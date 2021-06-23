@@ -11,7 +11,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { useState } from 'react';
 import TabPanel from '../../../components/TabPanel/TabPanel';
-import TableUploader from '../../../components/TableUploader/TableUploader';
+import TableUploads from '../../../components/TableUploads/TableUploads';
 
 
 const AddProject = () => {
@@ -112,7 +112,7 @@ const AddProject = () => {
                         </Tabs>
                     </AppBar>
                     <TabPanel value={value} index={0}>
-                        <TableUploader />
+                        <TableUploads />
                     </TabPanel>
 
                     <TabPanel value={value} index={1}>

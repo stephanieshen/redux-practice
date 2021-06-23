@@ -13,7 +13,7 @@ import { faDownload, faEye, faPlus, faTrash } from '@fortawesome/free-solid-svg-
 
 import Button from '../Button/Button';
 import ModalComponent from '../Modal/Modal';
-import styles from './TableUploader.module.scss';
+import styles from './TableUploads.module.scss';
 
 const useStyles = makeStyles({
     table: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     },
 });
 
-const TableUploader = () => {
+const TableUploads = () => {
     const classes = useStyles();
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -117,4 +117,4 @@ const TableUploader = () => {
     )
 }
 
-export default TableUploader;
+export default TableUploads;
