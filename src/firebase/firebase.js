@@ -17,5 +17,6 @@ firebase.initializeApp(firebaseConfig);
 
 const storage = firebase.storage();
 
+export const endpoint = 'https://projects-app-cd9bd-default-rtdb.asia-southeast1.firebasedatabase.app';
 
 export default storage;

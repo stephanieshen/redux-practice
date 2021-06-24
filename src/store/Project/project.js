@@ -23,6 +23,13 @@ const projectSlice = createSlice({
         addProject(state, action) {
             state.changed = true;
             state.projects.push(action.payload)
+        },
+        removeProject(state, action) {
+            state.changed = true;
+            const index = state.projects.findIndex(
+                project => project.id === action.payload.id
+            );
+            state.projects.splice(index, 1);
         }
     }
 });

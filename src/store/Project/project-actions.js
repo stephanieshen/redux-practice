@@ -1,10 +1,11 @@
+import { endpoint } from "../../firebase/firebase";
 import { projectActions } from "./project";
 
 export const getProjects = () => {
     return async (dispatch) => {
         const getProjectsData = async () => {
             const response = await fetch(
-                'https://projects-app-cd9bd-default-rtdb.asia-southeast1.firebasedatabase.app/projects.json',
+                endpoint + '/projects.json',
                 {
                     method: 'GET'
                 }
@@ -27,21 +28,48 @@ export const getProjects = () => {
 export const addProject = (project) => {
     return async (dispatch) => {
         const addProjectData = async () => {
-            await fetch(
-                'https://projects-app-cd9bd-default-rtdb.asia-southeast1.firebasedatabase.app/projects.json', 
+            const response = await fetch(
+                endpoint + '/projects.json', 
                 { 
                     method: 'POST', 
                     body: JSON.stringify(project) 
                 }
             );
+
+            return await response.json();
         }
 
         try {
-            await addProjectData();
-            dispatch(projectActions.addProject(project));
+            const addedProject = await addProjectData();
+            dispatch(projectActions.addProject({ 
+                id: addedProject.name, 
+                ...project 
+            }));
         } catch (error) {
             addProjectData.catch(() => {
                 alert('error adding project');
+            });
+        }
+    }
+}
+
+export const deleteProject = (project) => {
+    return async (dispatch) => {
+        const deleteProjectData = async () => {
+            await fetch(
+                endpoint + `/projects/${project.id}.json`, 
+                { 
+                    method: 'DELETE'
+                }
+            );
+        }
+
+        try {
+            await deleteProjectData();
+            dispatch(projectActions.removeProject(project));
+        } catch (error) {
+            deleteProjectData().catch(() => {
+                alert('error deleting project');
             });
         }
     }

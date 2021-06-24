@@ -12,13 +12,18 @@ import PropTypes from 'prop-types';
 const Card = (props) => {
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const openMenu = (e) => {
+    const openMenu = (e): void => {
         setAnchorEl(e.currentTarget);
     }
 
-    const closeMenu = () => {
+    const closeMenu = (): void => {
         setAnchorEl(null);
     };
+
+    const onDeleteProject = (): void => {
+        props.delete(props.project);
+        closeMenu();
+    }
 
     return (
         <>
@@ -53,7 +58,7 @@ const Card = (props) => {
                     <FontAwesomeIcon icon={faPencilAlt} /> 
                     <span className={styles.CardMenuLabel}>Edit</span>
                 </MenuItem>
-                <MenuItem onClick={closeMenu}>
+                <MenuItem onClick={onDeleteProject}>
                     <FontAwesomeIcon icon={faTrash} /> 
                     <span className={styles.CardMenuLabel}>Delete</span>
                 </MenuItem>
@@ -63,7 +68,8 @@ const Card = (props) => {
 }
 
 Card.propTypes = {
-    project: PropTypes.object
+    project: PropTypes.object,
+    delete: PropTypes.func
 }
 
 
