@@ -12,6 +12,8 @@ import Tab from '@material-ui/core/Tab';
 import { useState } from 'react';
 import TabPanel from '../../../components/TabPanel/TabPanel';
 import TableUploads from '../../../components/TableUploads/TableUploads';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
 
 
 const AddProject = () => {
@@ -30,9 +32,16 @@ const AddProject = () => {
 
     return (
         <div className={styles.AddProject}>
-            <p className={styles.PageLocation}>
-                Manage Projects &#x3e; Add New Project
-            </p>
+            <div className={styles.PageLocation}>
+                <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="inherit" href="/manage-projects">
+                        Manage Projects
+                    </Link>
+                    <Link color="inherit" href="#">
+                        Add New Project
+                    </Link>
+                </Breadcrumbs>
+            </div>
 
             <div className={styles.WhiteCard}>
                 <div className={styles.CardHeader}>
@@ -120,7 +129,7 @@ const AddProject = () => {
                     </TabPanel>
 
                     <TabPanel value={value} index={2}>
-                        Item 3
+                        <TableUploads />
                     </TabPanel>
                 </div>
             </div>
