@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Datepicker from "./Datepicker/Datepicker";
 
 import styles from './FormField.module.scss';
+import InputFile from "./InputFile/InputFile";
 
 const FormField = (props) => {
 
@@ -25,6 +26,12 @@ const FormField = (props) => {
             case 'date':
                 return (
                     <Datepicker
+                        changed={props.changed} 
+                    />
+                )
+            case 'file':
+                return (
+                    <InputFile
                         changed={props.changed} 
                     />
                 )

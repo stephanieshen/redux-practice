@@ -4,7 +4,7 @@ export const getProjects = () => {
     return async (dispatch) => {
         const getProjectsData = async () => {
             const response = await fetch(
-                'https://redux-practice-b3796-default-rtdb.firebaseio.com/projects.json',
+                'https://projects-app-cd9bd-default-rtdb.asia-southeast1.firebasedatabase.app/projects.json',
                 {
                     method: 'GET'
                 }
@@ -28,7 +28,7 @@ export const addProject = (project) => {
     return async (dispatch) => {
         const addProjectData = async () => {
             await fetch(
-                'https://redux-practice-b3796-default-rtdb.firebaseio.com/projects.json', 
+                'https://projects-app-cd9bd-default-rtdb.asia-southeast1.firebasedatabase.app/projects.json', 
                 { 
                     method: 'POST', 
                     body: JSON.stringify(project) 

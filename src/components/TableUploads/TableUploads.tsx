@@ -13,6 +13,7 @@ import { faDownload, faEye, faPlus, faTrash } from '@fortawesome/free-solid-svg-
 
 import Button from '../Button/Button';
 import ModalComponent from '../Modal/Modal';
+import FileUploader from '../FileUploader/FileUploader';
 import styles from './TableUploads.module.scss';
 
 const useStyles = makeStyles({
@@ -110,8 +111,7 @@ const TableUploads = () => {
             </TableContainer>
 
             <ModalComponent isOpen={isModalOpen} handleClose={closeModal}>
-                <h2 id="transition-modal-title">Transition modal</h2>
-                <p id="transition-modal-description">react-transition-group animates me.</p>
+                <FileUploader />
             </ModalComponent>
         </>
     )
