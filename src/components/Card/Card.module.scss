@@ -9,9 +9,10 @@
 
     .EllipsisH {
         position: absolute;
-        top: 12px;
-        right: 12px;
+        top: 0;
+        right: 0;
         cursor: pointer;
+        padding: 15px;
     }
 
     .LastUpdate {
@@ -36,4 +37,9 @@
     .TextWrapper {
         text-align: center;
     }
+}
+
+.CardMenuLabel {
+    display: inline-block;
+    margin-left: 12px;
 }
