@@ -1,25 +1,11 @@
 import { Formik, Field, Form } from 'formik';
-import storage from '../../firebase/firebase';
+import PropTypes from 'prop-types';
+
 import Button from '../Button/Button';
 import FormField from '../FormField/FormField';
 import styles from './FileUploader.module.scss';
 
-const FileUploader = () => {
-
-    const handleFirebaseUpload = (e) => {
-        const file = e.target.files[0];
-        const storageRef = storage.ref();
-        const fileRef = storageRef.child(file.name);
-        fileRef.put(file).on('state_changed', () => {}, 
-        (err) => {
-            console.log(err);
-        }, () => {
-            storage.ref().child(file.name).getDownloadURL().then((url) => {
-                console.log(url);
-            })
-        })
-    }
-
+const FileUploader = (props) => {
 
     return (
         <Formik
@@ -46,7 +32,7 @@ const FileUploader = () => {
                             as={FormField} 
                             label="" 
                             type="file" 
-                            changed={e => handleFirebaseUpload(e)}
+                            changed={e => setFieldValue('file', e.target.files[0])}
                         />
                     </div>
 
@@ -57,11 +43,14 @@ const FileUploader = () => {
                     </div>
                 </Form>
             )}
-            onSubmit={async (values) => console.log(values)}
+            onSubmit={async (values) => props.upload(values)}
         >
-
         </Formik>   
     )
+}
+
+FileUploader.propTypes = {
+    upload: PropTypes.func.isRequired
 }
 
 export default FileUploader;

@@ -15,6 +15,9 @@ import Button from '../Button/Button';
 import ModalComponent from '../Modal/Modal';
 import FileUploader from '../FileUploader/FileUploader';
 import styles from './TableUploads.module.scss';
+import { FileUpload } from '../../models/file-upload.model';
+import storage from '../../firebase/firebase';
+
 
 const useStyles = makeStyles({
     table: {
@@ -26,12 +29,27 @@ const TableUploads = () => {
     const classes = useStyles();
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-    const openUploadModal = () => {
+    const openUploadModal = (): void => {
         setIsModalOpen(true);
     }
 
-    const closeModal = () => {
+    const closeModal = (): void => {
         setIsModalOpen(false);
+    }
+
+    const handleFileUpload = (values: FileUpload): void => {
+        const storageRef = storage.ref();
+        const fileRef = storageRef.child(values.filename);
+        fileRef.put(values.file).on('state_changed', () => {}, 
+        () => {
+            alert('error uploading');
+        }, () => {
+            storage.ref().child(values.filename)
+            .getDownloadURL()
+            .then((url) => {
+                console.log(url);
+            })
+        })
     }
 
     const files = [
@@ -111,7 +129,7 @@ const TableUploads = () => {
             </TableContainer>
 
             <ModalComponent isOpen={isModalOpen} handleClose={closeModal}>
-                <FileUploader />
+                <FileUploader upload={handleFileUpload} />
             </ModalComponent>
         </>
     )
