@@ -18,32 +18,35 @@ import TabPanel from '../../../components/TabPanel/TabPanel';
 import TableUploads from '../../../components/TableUploads/TableUploads';
 
 import styles from './ProjectInfo.module.scss';
-import { projectActions } from '../../../store/Project/project';
 
 const ProjectInfo = (props) => {
+    const { location } = props;
     const dispatch = useDispatch();
     const history = useHistory();
+    const [activeProject] = useState(location?.state?.project);
     const [isEditMode, setIsEditMode] = useState(false);
     const [value, setValue] = useState(0);
-    const { location } = props;
 
     const handleChange = (e, newValue) => {
       setValue(newValue);
     };
 
     const submit = (values: Project): void => {
-        dispatch(addProject(values));
-        history.goBack();
+        if (!isEditMode) {
+            dispatch(addProject(values));
+            history.goBack();
+            return;
+        }
+
+        // code for update
     }
 
     useEffect(() => {
-        const project = location?.state?.project;
-        if (Boolean(project)) {
+        if (activeProject) {
             setIsEditMode(true);
-            dispatch(projectActions.setActiveProject(project));
         }   
 
-    }, [dispatch, location?.state?.project]);
+    }, [activeProject, location?.state?.project]);
 
     return (
         <div className={styles.ProjectInfo}>
@@ -53,23 +56,23 @@ const ProjectInfo = (props) => {
                         Manage Projects
                     </Link>
                     <Link color="inherit" href="#">
-                        Add New Project
+                        {isEditMode ? `Edit ${activeProject?.title}` : 'Add New Project'}
                     </Link>
                 </Breadcrumbs>
             </div>
 
             <div className={styles.WhiteCard}>
                 <div className={styles.CardHeader}>
-                    <h4>Add Project</h4>
+                    <h4>{isEditMode ? 'Edit' : 'Add'} Project </h4>
                     <p>Let’s get you all setup. Please tell a bit about your project.</p>
                 </div>
 
                 <Formik
                     initialValues={{
-                        title: '',
-                        description: '',
-                        dateStarted: '',
-                        developers: ''
+                        title: activeProject?.title,
+                        description: activeProject?.description,
+                        dateStarted: activeProject?.dateStarted,
+                        developers: activeProject?.developers
                     }}
                     render={({ setFieldValue, values }) => (
                         <Form>
@@ -115,7 +118,7 @@ const ProjectInfo = (props) => {
 
                             <div className={styles.ButtonWrapper}>
                                 <Button type="submit" classes={['Primary']}>
-                                    Next
+                                    {isEditMode ? 'Update' : 'Next'}
                                 </Button>
                             </div>
                         </Form>

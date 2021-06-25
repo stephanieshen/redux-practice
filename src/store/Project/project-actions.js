@@ -53,6 +53,30 @@ export const addProject = (project) => {
     }
 }
 
+export const updateProject = (project) => {
+    return async (dispatch) => {
+        const updateProjectData = async () => {
+            const response = await fetch(
+                endpoint + '/projects.json', 
+                { 
+                    method: 'PUT', 
+                    body: JSON.stringify(project) 
+                }
+            );
+
+            return await response.json();
+        }
+
+        try {
+            await updateProjectData();
+        } catch (error) {
+            updateProjectData.catch(() => {
+                alert('error updating project');
+            });
+        }
+    }
+}
+
 export const deleteProject = (project) => {
     return async (dispatch) => {
         const deleteProjectData = async () => {

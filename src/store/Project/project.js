@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const projectState = {
     projects: [],
-    changed: false,
-    activeProject: null
+    changed: false
 }
 
 const projectSlice = createSlice({
@@ -32,9 +31,6 @@ const projectSlice = createSlice({
             );
             state.projects.splice(index, 1);
         },
-        setActiveProject(state, action) {
-            state.activeProject = action.payload;
-        }
     }
 });
 
