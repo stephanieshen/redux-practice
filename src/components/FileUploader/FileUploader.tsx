@@ -10,9 +10,14 @@ const FileUploader = () => {
         const file = e.target.files[0];
         const storageRef = storage.ref();
         const fileRef = storageRef.child(file.name);
-        fileRef.put(file).then(() => {
-            console.log('file uplod');
-        }); 
+        fileRef.put(file).on('state_changed', () => {}, 
+        (err) => {
+            console.log(err);
+        }, () => {
+            storage.ref().child(file.name).getDownloadURL().then((url) => {
+                console.log(url);
+            })
+        })
     }
 
 
