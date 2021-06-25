@@ -1,7 +1,7 @@
 import Button from '../../../components/Button/Button';
 import FormField from '../../../components/FormField/FormField';
 import { Formik, Field, Form } from 'formik';
-import styles from './AddProject.module.scss';
+import styles from './ProjectInfo.module.scss';
 import { Project } from '../../../models/projects.model';
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
@@ -14,9 +14,9 @@ import TabPanel from '../../../components/TabPanel/TabPanel';
 import TableUploads from '../../../components/TableUploads/TableUploads';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
+import PropTypes from 'prop-types';
 
-
-const AddProject = () => {
+const ProjectInfo = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [value, setValue] = useState(0);
@@ -31,7 +31,7 @@ const AddProject = () => {
     }
 
     return (
-        <div className={styles.AddProject}>
+        <div className={styles.ProjectInfo}>
             <div className={styles.PageLocation}>
                 <Breadcrumbs aria-label="breadcrumb">
                     <Link color="inherit" href="/manage-projects">
@@ -137,4 +137,9 @@ const AddProject = () => {
     )
 }
 
-export default AddProject;
+ProjectInfo.propTypes = {
+    location: PropTypes.object,
+}
+
+
+export default ProjectInfo;

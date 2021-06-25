@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import PropTypes from 'prop-types';
 
 const Card = (props) => {
+    const { project, edit, remove } = props;
     const [anchorEl, setAnchorEl] = useState(null);
 
     const openMenu = (e): void => {
@@ -20,8 +21,13 @@ const Card = (props) => {
         setAnchorEl(null);
     };
 
+    const onEditProject = (): void => {
+        edit(project);
+        closeMenu();
+    }
+
     const onDeleteProject = (): void => {
-        props.delete(props.project);
+        remove(project);
         closeMenu();
     }
 
@@ -39,7 +45,7 @@ const Card = (props) => {
                 <img src={dummyLogo} alt="dummyLogo" className={styles.Logo} />
                 <div className={styles.TextWrapper}>
                     <label className={styles.ProjectName}>
-                        {props.project.title}
+                        {project.title}
                     </label>
                     <span className={styles.LastUpdate}>
                         Updated last: Jun 20 2021
@@ -54,7 +60,7 @@ const Card = (props) => {
                 open={Boolean(anchorEl)}
                 onClose={closeMenu}
             >
-                <MenuItem onClick={closeMenu}>
+                <MenuItem onClick={onEditProject}>
                     <FontAwesomeIcon icon={faPencilAlt} /> 
                     <span className={styles.CardMenuLabel}>Edit</span>
                 </MenuItem>
@@ -69,7 +75,8 @@ const Card = (props) => {
 
 Card.propTypes = {
     project: PropTypes.object,
-    delete: PropTypes.func
+    edit: PropTypes.func,
+    remove: PropTypes.func
 }
 
 

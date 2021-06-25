@@ -4,10 +4,21 @@ import styles from './ProjectsList.module.scss';
 
 import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { deleteProject } from "../../store/Project/project-actions";
 
 const ProjectsList = (props) => {
     const dispatch = useDispatch();
+    const history = useHistory();
+
+    const editProjectData = (project): void => {
+        history.push({
+            pathname: '/manage-projects/edit',
+            state: {
+                id: project.id
+            }
+        });
+    }
 
     const deleteProjectData = (project): void => {
         dispatch(deleteProject(project));
@@ -19,7 +30,8 @@ const ProjectsList = (props) => {
                 <Card
                     key={index} 
                     project={project} 
-                    delete={deleteProjectData} 
+                    edit={editProjectData}
+                    remove={deleteProjectData} 
                 />
             ))}
         </div>
