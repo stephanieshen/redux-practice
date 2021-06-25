@@ -1,25 +1,31 @@
-import Button from '../../../components/Button/Button';
-import FormField from '../../../components/FormField/FormField';
+import { useEffect, useState } from 'react';
+
 import { Formik, Field, Form } from 'formik';
-import styles from './ProjectInfo.module.scss';
-import { Project } from '../../../models/projects.model';
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { addProject } from '../../../store/Project/project-actions';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { useState } from 'react';
-import TabPanel from '../../../components/TabPanel/TabPanel';
-import TableUploads from '../../../components/TableUploads/TableUploads';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import PropTypes from 'prop-types';
 
+import Button from '../../../components/Button/Button';
+import FormField from '../../../components/FormField/FormField';
+import { Project } from '../../../models/projects.model';
+import { addProject } from '../../../store/Project/project-actions';
+import TabPanel from '../../../components/TabPanel/TabPanel';
+import TableUploads from '../../../components/TableUploads/TableUploads';
+
+import styles from './ProjectInfo.module.scss';
+import { projectActions } from '../../../store/Project/project';
+
 const ProjectInfo = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
+    const [isEditMode, setIsEditMode] = useState(false);
     const [value, setValue] = useState(0);
+    const { location } = props;
 
     const handleChange = (e, newValue) => {
       setValue(newValue);
@@ -29,6 +35,15 @@ const ProjectInfo = (props) => {
         dispatch(addProject(values));
         history.goBack();
     }
+
+    useEffect(() => {
+        const project = location?.state?.project;
+        if (Boolean(project)) {
+            setIsEditMode(true);
+            dispatch(projectActions.setActiveProject(project));
+        }   
+
+    }, [dispatch, location?.state?.project]);
 
     return (
         <div className={styles.ProjectInfo}>
@@ -56,7 +71,7 @@ const ProjectInfo = (props) => {
                         dateStarted: '',
                         developers: ''
                     }}
-                    render={({ setFieldValue }) => (
+                    render={({ setFieldValue, values }) => (
                         <Form>
                             <div className={styles.FormWrapper}>
                                 <div className={styles.FormCol}>
@@ -64,7 +79,8 @@ const ProjectInfo = (props) => {
                                         name="title" 
                                         as={FormField} 
                                         label="Project Title" 
-                                        type="text"
+                                        type="text" 
+                                        value={values?.title}
                                         changed={e => setFieldValue('title', e.target.value)}
                                     />
                                     <Field
@@ -72,6 +88,7 @@ const ProjectInfo = (props) => {
                                         as={FormField} 
                                         label="Description" 
                                         type="textarea" 
+                                        value={values?.description}
                                         changed={e => setFieldValue('description', e.target.value)}
                                     />
                                     <Field
@@ -79,6 +96,7 @@ const ProjectInfo = (props) => {
                                         as={FormField} 
                                         label="Date Started" 
                                         type="date" 
+                                        value={values?.dateStarted}
                                         changed={e => setFieldValue('dateStarted', e.target.value)}
                                     />
                                 </div>
@@ -89,6 +107,7 @@ const ProjectInfo = (props) => {
                                         as={FormField} 
                                         label="Developers" 
                                         type="textarea" 
+                                        value={values?.developers}
                                         changed={e => setFieldValue('developers', e.target.value)}
                                     />
                                 </div>
@@ -106,33 +125,35 @@ const ProjectInfo = (props) => {
             </div>
 
 
-            <div className={styles.WhiteCard}>
-                <div className={styles.CardHeader}>
-                    <h4>Documents</h4>
-                    <p>Upload all the necessary documents here!</p>
+            {isEditMode && (
+                <div className={styles.WhiteCard}>
+                    <div className={styles.CardHeader}>
+                        <h4>Documents</h4>
+                        <p>Upload all the necessary documents here!</p>
+                    </div>
+
+                    <div className={styles.TabsWrapper}>
+                        <AppBar position="static" elevation={0}>
+                            <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+                                <Tab label="BRD" id="simple-tab-0" aria-controls="simple-tabpanel-0" />
+                                <Tab label="Test Cases" id="simple-tab-1" aria-controls="simple-tabpanel-1" />
+                                <Tab label="Manuals" id="simple-tab-2" aria-controls="simple-tabpanel-2" />
+                            </Tabs>
+                        </AppBar>
+                        <TabPanel value={value} index={0}>
+                            <TableUploads />
+                        </TabPanel>
+
+                        <TabPanel value={value} index={1}>
+                            Item 2
+                        </TabPanel>
+
+                        <TabPanel value={value} index={2}>
+                            <TableUploads />
+                        </TabPanel>
+                    </div>
                 </div>
-
-                <div className={styles.TabsWrapper}>
-                    <AppBar position="static" elevation={0}>
-                        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                            <Tab label="BRD" id="simple-tab-0" aria-controls="simple-tabpanel-0" />
-                            <Tab label="Test Cases" id="simple-tab-1" aria-controls="simple-tabpanel-1" />
-                            <Tab label="Manuals" id="simple-tab-2" aria-controls="simple-tabpanel-2" />
-                        </Tabs>
-                    </AppBar>
-                    <TabPanel value={value} index={0}>
-                        <TableUploads />
-                    </TabPanel>
-
-                    <TabPanel value={value} index={1}>
-                        Item 2
-                    </TabPanel>
-
-                    <TabPanel value={value} index={2}>
-                        <TableUploads />
-                    </TabPanel>
-                </div>
-            </div>
+            )}
         </div>
     )
 }

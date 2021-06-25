@@ -15,7 +15,7 @@ const ProjectsList = (props) => {
         history.push({
             pathname: '/manage-projects/edit',
             state: {
-                id: project.id
+                project: project
             }
         });
     }

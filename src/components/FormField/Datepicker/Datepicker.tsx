@@ -8,13 +8,15 @@ const Datepicker = (props) => {
             type="date" 
             className={styles.Datepicker} 
             onChange={props.changed} 
+            value={props.value ? props.value : ''}
         />
     )
 }
 
 
 Datepicker.propTypes = {
-    changed: PropTypes.func
+    changed: PropTypes.func,
+    value: PropTypes.string
 }
 
 export default Datepicker;

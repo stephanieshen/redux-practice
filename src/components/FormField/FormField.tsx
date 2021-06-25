@@ -15,18 +15,21 @@ const FormField = (props) => {
                     <InputText
                         placeholder={props.label} 
                         changed={props.changed} 
+                        value={props.value}
                     />
                 );
             case 'textarea':
                 return (
                     <Textarea
                         changed={props.changed} 
+                        value={props.value}
                     />
                 );
             case 'date':
                 return (
                     <Datepicker
                         changed={props.changed} 
+                        value={props.value}
                     />
                 )
             case 'file':
@@ -51,7 +54,8 @@ const FormField = (props) => {
 FormField.propTypes = {
     label: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    changed: PropTypes.func
+    changed: PropTypes.func,
+    value: PropTypes.string
 }
 
 

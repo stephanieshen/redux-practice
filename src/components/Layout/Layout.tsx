@@ -15,9 +15,9 @@ const Layout = (props) => {
                 {props.children}
                 
                 <Switch>
-                    <Route path="/manage-projects" component={ManageProjects} exact />
-                    <Route path="/manage-projects/add" component={ProjectInfo} exact />
-                    <Route path="/manage-projects/edit" component={ProjectInfo} exact />
+                    <Route key="manage-project" path="/manage-projects" component={ManageProjects} exact />
+                    <Route key="add-project" path="/manage-projects/add" component={ProjectInfo} exact />
+                    <Route key="edit-project" path="/manage-projects/edit" component={ProjectInfo} exact />
                     <Redirect from="/" to="/manage-projects" />
                 </Switch>
             </main>

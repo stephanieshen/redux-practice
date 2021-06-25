@@ -8,12 +8,14 @@ const Textarea = (props) => {
             className={styles.TextArea} 
             rows={8} 
             onChange={props.changed} 
+            value={props.value ? props.value : ''}
         />
     )
 }
 
 Textarea.propTypes = {
-    changed: PropTypes.func
+    changed: PropTypes.func,
+    value: PropTypes.string
 }
 
 export default Textarea;
