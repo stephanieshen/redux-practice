@@ -69,6 +69,7 @@ export const updateProject = (project) => {
 
         try {
             await updateProjectData();
+            dispatch(projectActions.updateProject(project));
         } catch (error) {
             updateProjectData.catch(() => {
                 alert('error updating project');

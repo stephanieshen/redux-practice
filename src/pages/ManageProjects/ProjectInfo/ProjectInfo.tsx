@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { Formik, Field, Form } from 'formik';
-import { useDispatch } from 'react-redux';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -23,25 +23,27 @@ const ProjectInfo = (props) => {
     const { location } = props;
     const dispatch = useDispatch();
     const history = useHistory();
-    const [activeProject] = useState(location?.state?.project);
     const [isEditMode, setIsEditMode] = useState(false);
     const [value, setValue] = useState(0);
+    const activeProject = useSelector(
+        (state: RootStateOrAny) => state.projects.activeProject
+    );
 
     const handleChange = (e, newValue) => {
       setValue(newValue);
     };
 
-    const submit = (values: Project): void => {
+    const submit = async (values: Project): Promise<any> => {
         if (!isEditMode) {
             dispatch(addProject(values));
-            history.goBack();
             return;
         }
 
-        dispatch(updateProject({
+        await dispatch(updateProject({
             id: activeProject.id,
             ...values
-        }))
+        }));
+        history.goBack();
     }
 
     useEffect(() => {

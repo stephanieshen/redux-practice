@@ -6,12 +6,14 @@ import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { deleteProject } from "../../store/Project/project-actions";
+import { projectActions } from "../../store/Project/project";
 
 const ProjectsList = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
     const editProjectData = (project): void => {
+        dispatch(projectActions.setActiveProject(project));
         history.push({
             pathname: '/manage-projects/edit',
             state: {
