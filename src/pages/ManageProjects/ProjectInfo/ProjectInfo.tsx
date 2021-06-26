@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 import Button from '../../../components/Button/Button';
 import FormField from '../../../components/FormField/FormField';
 import { Project } from '../../../models/projects.model';
-import { addProject } from '../../../store/Project/project-actions';
+import { addProject, updateProject } from '../../../store/Project/project-actions';
 import TabPanel from '../../../components/TabPanel/TabPanel';
 import TableUploads from '../../../components/TableUploads/TableUploads';
 
@@ -38,7 +38,10 @@ const ProjectInfo = (props) => {
             return;
         }
 
-        // code for update
+        dispatch(updateProject({
+            id: activeProject.id,
+            ...values
+        }))
     }
 
     useEffect(() => {

@@ -57,7 +57,7 @@ export const updateProject = (project) => {
     return async (dispatch) => {
         const updateProjectData = async () => {
             const response = await fetch(
-                endpoint + '/projects.json', 
+                endpoint + `/projects/${project.id}.json`, 
                 { 
                     method: 'PUT', 
                     body: JSON.stringify(project) 
