@@ -4,14 +4,17 @@ export interface Project {
     description: string;
     dateStarted: string;
     developers: string;
-    brds?: BRD[];
+    brds?: ProjectFile[];
 }
 
 export interface Projects {
     projects: Project
 }
 
-export interface BRD {
+export interface ProjectFile {
+    id?: string;
     filename: string;
     fileUrl: string;
+    dateUploaded: Date;
+    uploadedBy: string;
 }

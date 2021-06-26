@@ -147,7 +147,10 @@ const ProjectInfo = (props) => {
                             </Tabs>
                         </AppBar>
                         <TabPanel value={value} index={0}>
-                            <TableUploads />
+                            <TableUploads
+                                project={activeProject} 
+                                propertyName="brds"
+                            />
                         </TabPanel>
 
                         <TabPanel value={value} index={1}>
@@ -155,7 +158,10 @@ const ProjectInfo = (props) => {
                         </TabPanel>
 
                         <TabPanel value={value} index={2}>
-                            <TableUploads />
+                            <TableUploads 
+                                project={activeProject} 
+                                propertyName="manuals"
+                            />
                         </TabPanel>
                     </div>
                 </div>

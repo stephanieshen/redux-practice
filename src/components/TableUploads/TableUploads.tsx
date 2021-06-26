@@ -1,5 +1,6 @@
 import { useState } from 'react';
-
+import uuid from 'react-uuid'
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,6 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload, faEye, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { format } from 'date-fns';
 
 import Button from '../Button/Button';
 import ModalComponent from '../Modal/Modal';
@@ -17,6 +19,9 @@ import FileUploader from '../FileUploader/FileUploader';
 import styles from './TableUploads.module.scss';
 import { FileUpload } from '../../models/file-upload.model';
 import storage from '../../firebase/firebase';
+import { ProjectFile } from '../../models/projects.model';
+import { useDispatch } from 'react-redux';
+import { updateProject } from '../../store/Project/project-actions';
 
 
 const useStyles = makeStyles({
@@ -25,8 +30,10 @@ const useStyles = makeStyles({
     },
 });
 
-const TableUploads = () => {
+const TableUploads = (props) => {
+    const { project, propertyName } = props;
     const classes = useStyles();
+    const dispatch = useDispatch();
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     const openUploadModal = (): void => {
@@ -37,6 +44,29 @@ const TableUploads = () => {
         setIsModalOpen(false);
     }
 
+    const createProjectFile = (
+        filename: string, 
+        url: string
+    ): ProjectFile => {
+        return {
+            id: uuid(),
+            filename: filename,
+            fileUrl: url,
+            dateUploaded: new Date(),
+            uploadedBy: 'Shen Sabado'
+        }
+    }
+
+    const updateProjectFiles = (file: ProjectFile): void => {
+        if (!project[propertyName]) {
+            project[propertyName] = [file];
+        } else {
+            project[propertyName].push(file);
+        }
+
+        dispatch(updateProject(project));
+    }
+
     const handleFileUpload = (values: FileUpload): void => {
         const storageRef = storage.ref();
         const fileRef = storageRef.child(values.filename);
@@ -45,33 +75,14 @@ const TableUploads = () => {
             alert('error uploading');
         }, () => {
             storage.ref().child(values.filename)
-            .getDownloadURL()
-            .then((url) => {
-                console.log(url);
-            })
+                .getDownloadURL()
+                .then((url) => {
+                    const file = createProjectFile(values.filename, url);
+                    updateProjectFiles(file);
+                })
         })
     }
 
-    const files = [
-        {
-            id: '1',
-            filename: 'Business Requirement Document v1',
-            dateUploaded: '2021-06-26',
-            uploadedBy: 'Shen Sabado'
-        },
-        {
-            id: '2',
-            filename: 'Business Requirement Document v2',
-            dateUploaded: '2021-06-28',
-            uploadedBy: 'Shen Sabado'
-        },
-        {
-            id: '3',
-            filename: 'Business Requirement Document v3',
-            dateUploaded: '2021-06-29',
-            uploadedBy: 'Shen Sabado'
-        }
-    ];
 
     return (
         <>
@@ -94,13 +105,13 @@ const TableUploads = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {files.map((file) => (
+                        {project[propertyName]?.map((file: ProjectFile) => (
                             <TableRow key={file.id}>
                                 <TableCell component="th" scope="row">
                                     {file.filename}
                                 </TableCell>
                                 <TableCell align="right">
-                                    {file.dateUploaded}
+                                    {format(new Date(file.dateUploaded), 'MMMM d, yyyy')}
                                 </TableCell>
                                 <TableCell align="right">
                                     {file.uploadedBy}
@@ -133,6 +144,11 @@ const TableUploads = () => {
             </ModalComponent>
         </>
     )
+}
+
+TableUploads.propTypes = {
+    project: PropTypes.object.isRequired,
+    propertyName: PropTypes.string.isRequired
 }
 
 export default TableUploads;
