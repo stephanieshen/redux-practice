@@ -1,6 +1,5 @@
 import Button from "../../components/Button/Button";
-import ProjectsList from "../../components/ProjectsList/ProjectsList"
-import Search from "../../components/Search/Search";
+import ProjectsList from "../../components/ProjectsList/ProjectsList";
 
 import { useHistory } from "react-router-dom";
 
