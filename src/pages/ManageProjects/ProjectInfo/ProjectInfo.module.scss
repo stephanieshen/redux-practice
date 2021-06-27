@@ -27,11 +27,6 @@
     }
 }
 
-.Divider {
-    border: none;
-    border-top: 1px solid #ededed;
-}
-
 .FormWrapper {
     margin-top: 35px;
     display: flex;
@@ -40,6 +35,14 @@
 
 .FormCol {
     width: 48%;
+}
+
+.LogoWrapper {
+    width: 200px;
+}
+
+.Logo {
+    width: 100%;
 }
 
 .PageLocation {

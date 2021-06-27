@@ -19,7 +19,7 @@ const InputFile = (props) => {
     }
 
     return (
-       <div className={styles.InputFile}>
+        <div className={styles.InputFile}>
             <button 
                 type="button" 
                 className={`${styles.UploadBtn} ${isFileAdded ? styles.Success : ''}`} 
@@ -38,12 +38,13 @@ const InputFile = (props) => {
                 className={styles.Input}
                 ref={fileInput}
             />
-       </div>
+        </div>
     )
 }
 
 InputFile.propTypes = {
-    changed: PropTypes.func
+    changed: PropTypes.func,
+    value: PropTypes.any
 }
 
 export default InputFile;

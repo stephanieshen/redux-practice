@@ -35,7 +35,8 @@ const FormField = (props) => {
             case 'file':
                 return (
                     <InputFile
-                        changed={props.changed} 
+                        changed={props.changed}
+                        value={props.value}
                     />
                 )
         }

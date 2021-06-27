@@ -125,13 +125,26 @@ const ProjectInfo = () => {
                                         value={values?.developers}
                                         changed={e => setFieldValue('developers', e.target.value)}
                                     />
-                                    <Field
-                                        name="logo" 
-                                        as={FormField} 
-                                        label="Logo" 
-                                        type="file" 
-                                        changed={e => setFieldValue('logo', e.target.files[0])}
-                                    />
+
+                                    {activeProject?.logo && (
+                                        <div className={styles.LogoWrapper}>
+                                            <img 
+                                                src={activeProject.logo}
+                                                className={styles.Logo}
+                                            />
+                                        </div>
+                                    )}
+
+                                    {!activeProject?.logo && (
+                                        <Field
+                                            name="logo" 
+                                            as={FormField} 
+                                            label="Logo" 
+                                            type="file"
+                                            value={values?.logo}
+                                            changed={e => setFieldValue('logo', e.target.files[0])}
+                                        />
+                                    )}
                                 </div>
                             </div>
 
