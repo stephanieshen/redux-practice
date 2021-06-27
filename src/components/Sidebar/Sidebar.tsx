@@ -29,7 +29,7 @@ const Sidebar = () => {
                      icon={faUserFriends} 
                      className={styles.SidebarIcon} 
                     />
-                    <label>Manage User</label>
+                    <label>Manage Users</label>
                 </div>
 
                 <div className={styles.SidebarItem}>

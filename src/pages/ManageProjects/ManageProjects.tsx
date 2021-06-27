@@ -30,7 +30,7 @@ const ManageProjects = () => {
         <div className={styles.ManageProjects}>
             <div className={styles.Header}>
                 <h3>Hello, Shen!</h3>
-                <Search />
+                {/* <Search /> */}
             </div>
             <div className={styles.ButtonWrapper}>
                 <Button type="button" clicked={addProject} classes={['Primary']}>
