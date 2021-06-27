@@ -15,6 +15,6 @@ export interface ProjectFile {
     id?: string;
     filename: string;
     fileUrl: string;
-    dateUploaded: Date;
+    dateUploaded: any;
     uploadedBy: string;
 }

@@ -8,6 +8,7 @@ import styles from './ManageProjects.module.scss';
 import { useEffect } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { getProjects } from "../../store/Project/project-actions";
+import { projectActions } from "../../store/Project/project";
 
 const ManageProjects = () => {
     const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const ManageProjects = () => {
     const projects = useSelector((state: RootStateOrAny) => state.projects);
 
     const addProject = (): void => {
+        dispatch(projectActions.setActiveProject(null));
         history.push('/manage-projects/add');
     }
 

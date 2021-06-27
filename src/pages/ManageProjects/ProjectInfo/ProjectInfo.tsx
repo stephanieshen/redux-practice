@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-
+import { useState } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
@@ -8,7 +7,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
-import PropTypes from 'prop-types';
+import { cloneDeep } from 'lodash';
 
 import Button from '../../../components/Button/Button';
 import FormField from '../../../components/FormField/FormField';
@@ -19,15 +18,14 @@ import TableUploads from '../../../components/TableUploads/TableUploads';
 
 import styles from './ProjectInfo.module.scss';
 
-const ProjectInfo = (props) => {
-    const { location } = props;
+const ProjectInfo = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const [isEditMode, setIsEditMode] = useState(false);
     const [value, setValue] = useState(0);
     const activeProject = useSelector(
         (state: RootStateOrAny) => state.projects.activeProject
     );
+    const [isEditMode] = useState(Boolean(activeProject));
 
     const handleChange = (e, newValue) => {
       setValue(newValue);
@@ -35,23 +33,18 @@ const ProjectInfo = (props) => {
 
     const submit = async (values: Project): Promise<any> => {
         if (!isEditMode) {
-            dispatch(addProject(values));
+            await dispatch(addProject(values));
+            history.push('/manage-projects/edit');
             return;
         }
 
+        const project = cloneDeep(activeProject);
         await dispatch(updateProject({
-            id: activeProject.id,
+            ...project,
             ...values
         }));
-        history.goBack();
+        history.push('/manage-projects');
     }
-
-    useEffect(() => {
-        if (activeProject) {
-            setIsEditMode(true);
-        }   
-
-    }, [activeProject, location?.state?.project]);
 
     return (
         <div className={styles.ProjectInfo}>
@@ -150,7 +143,7 @@ const ProjectInfo = (props) => {
                         </AppBar>
                         <TabPanel value={value} index={0}>
                             <TableUploads
-                                project={activeProject} 
+                                project={cloneDeep(activeProject)} 
                                 propertyName="brds"
                             />
                         </TabPanel>
@@ -160,10 +153,10 @@ const ProjectInfo = (props) => {
                         </TabPanel>
 
                         <TabPanel value={value} index={2}>
-                            <TableUploads 
+                            {/* <TableUploads 
                                 project={activeProject} 
                                 propertyName="manuals"
-                            />
+                            /> */}
                         </TabPanel>
                     </div>
                 </div>
@@ -171,10 +164,5 @@ const ProjectInfo = (props) => {
         </div>
     )
 }
-
-ProjectInfo.propTypes = {
-    location: PropTypes.object,
-}
-
 
 export default ProjectInfo;

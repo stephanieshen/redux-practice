@@ -13,11 +13,11 @@ const ProjectsList = (props) => {
     const history = useHistory();
 
     const editProjectData = (project): void => {
-        dispatch(projectActions.setActiveProject(project));
+        dispatch(projectActions.setActiveProject(project.id));
         history.push({
             pathname: '/manage-projects/edit',
             state: {
-                project: project
+                projectId: project.id
             }
         });
     }

@@ -52,7 +52,7 @@ const TableUploads = (props) => {
             id: uuid(),
             filename: filename,
             fileUrl: url,
-            dateUploaded: new Date(),
+            dateUploaded: format(new Date(), 'MMMM d, yyyy'),
             uploadedBy: 'Shen Sabado'
         }
     }
@@ -111,7 +111,7 @@ const TableUploads = (props) => {
                                     {file.filename}
                                 </TableCell>
                                 <TableCell align="right">
-                                    {format(new Date(file.dateUploaded), 'MMMM d, yyyy')}
+                                    {file.dateUploaded}
                                 </TableCell>
                                 <TableCell align="right">
                                     {file.uploadedBy}

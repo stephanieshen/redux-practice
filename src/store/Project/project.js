@@ -32,6 +32,8 @@ const projectSlice = createSlice({
                 project => project.id === action.payload.id
             );
             state.projects[index] = {...action.payload}
+            
+            state.activeProject = action.payload;
         },
         removeProject(state, action) {
             state.changed = true;
@@ -41,7 +43,10 @@ const projectSlice = createSlice({
             state.projects.splice(index, 1);
         },
         setActiveProject(state, action) {
-            state.activeProject = action.payload;
+            const project = state.projects.find(
+                project => project.id === action.payload
+            );
+            state.activeProject = project;
         }
     }
 });
