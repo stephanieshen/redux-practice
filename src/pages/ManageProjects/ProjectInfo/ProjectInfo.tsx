@@ -137,8 +137,7 @@ const ProjectInfo = () => {
                         <AppBar position="static" elevation={0}>
                             <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                                 <Tab label="BRD" id="simple-tab-0" aria-controls="simple-tabpanel-0" />
-                                <Tab label="Test Cases" id="simple-tab-1" aria-controls="simple-tabpanel-1" />
-                                <Tab label="Manuals" id="simple-tab-2" aria-controls="simple-tabpanel-2" />
+                                <Tab label="Manuals" id="simple-tab-1" aria-controls="simple-tabpanel-1" />
                             </Tabs>
                         </AppBar>
                         <TabPanel value={value} index={0}>
@@ -149,14 +148,10 @@ const ProjectInfo = () => {
                         </TabPanel>
 
                         <TabPanel value={value} index={1}>
-                            Item 2
-                        </TabPanel>
-
-                        <TabPanel value={value} index={2}>
-                            {/* <TableUploads 
-                                project={activeProject} 
+                            <TableUploads 
+                                project={cloneDeep(activeProject)} 
                                 propertyName="manuals"
-                            /> */}
+                            />
                         </TabPanel>
                     </div>
                 </div>
