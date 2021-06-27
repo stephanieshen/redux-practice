@@ -8,6 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import { cloneDeep } from 'lodash';
+import uuid from 'react-uuid';
 
 import Button from '../../../components/Button/Button';
 import FormField from '../../../components/FormField/FormField';
@@ -17,6 +18,7 @@ import TabPanel from '../../../components/TabPanel/TabPanel';
 import TableUploads from '../../../components/TableUploads/TableUploads';
 
 import styles from './ProjectInfo.module.scss';
+import storage from '../../../firebase/firebase';
 
 const ProjectInfo = () => {
     const dispatch = useDispatch();
@@ -33,6 +35,10 @@ const ProjectInfo = () => {
 
     const submit = async (values: Project): Promise<any> => {
         if (!isEditMode) {
+            if (values.logo) {
+                values.logo = await uploadLogo(values.logo);
+            }
+
             await dispatch(addProject(values));
             history.push('/manage-projects/edit');
             return;
@@ -44,6 +50,13 @@ const ProjectInfo = () => {
             ...values
         }));
         history.push('/manage-projects');
+    }
+
+    const uploadLogo = async (logo): Promise<any> => {
+        const storageRef = storage.ref();
+        const fileRef = storageRef.child(`${uuid()}-${logo.filename}`);
+        const uploadTask = await fileRef.put(logo);
+        return await uploadTask.ref.getDownloadURL();
     }
 
     return (
@@ -70,7 +83,8 @@ const ProjectInfo = () => {
                         title: activeProject?.title,
                         description: activeProject?.description,
                         dateStarted: activeProject?.dateStarted,
-                        developers: activeProject?.developers
+                        developers: activeProject?.developers,
+                        logo: activeProject?.logo
                     }}
                     render={({ setFieldValue, values }) => (
                         <Form>
@@ -110,6 +124,13 @@ const ProjectInfo = () => {
                                         type="textarea" 
                                         value={values?.developers}
                                         changed={e => setFieldValue('developers', e.target.value)}
+                                    />
+                                    <Field
+                                        name="logo" 
+                                        as={FormField} 
+                                        label="Logo" 
+                                        type="file" 
+                                        changed={e => setFieldValue('logo', e.target.files[0])}
                                     />
                                 </div>
                             </div>

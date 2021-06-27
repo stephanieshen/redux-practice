@@ -84,7 +84,7 @@ const TableUploads = (props) => {
                     const file = createProjectFile(values.filename, url);
                     updateProjectFiles(file);
                 })
-        })
+        });
     }
 
     const viewFile = (file: ProjectFile): void => {

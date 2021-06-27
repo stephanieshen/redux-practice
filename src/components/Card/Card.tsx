@@ -42,7 +42,7 @@ const Card = (props) => {
                     onClick={openMenu} 
                 />
 
-                <img src={dummyLogo} alt="dummyLogo" className={styles.Logo} />
+                <img src={project.logo} alt="Logo" className={styles.Logo} />
                 <div className={styles.TextWrapper}>
                     <label className={styles.ProjectName}>
                         {project.title}

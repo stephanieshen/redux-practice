@@ -4,6 +4,7 @@ export interface Project {
     description: string;
     dateStarted: string;
     developers: string;
+    logo?: File | string;
     brds?: ProjectFile[];
 }
 
