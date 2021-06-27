@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { find, findIndex } from 'lodash';
 
 const projectState = {
     projects: [],
@@ -28,24 +29,23 @@ const projectSlice = createSlice({
         },
         updateProject(state, action) {
             state.changed = true;
-            const index = state.projects.findIndex(
-                project => project.id === action.payload.id
-            );
+            const index = findIndex(state.projects, { 
+                id: action.payload.id 
+            }); 
             state.projects[index] = {...action.payload}
-            
             state.activeProject = action.payload;
         },
         removeProject(state, action) {
             state.changed = true;
-            const index = state.projects.findIndex(
-                project => project.id === action.payload.id
-            );
+            const index = findIndex(state.projects, { 
+                id: action.payload.id 
+            }); 
             state.projects.splice(index, 1);
         },
         setActiveProject(state, action) {
-            const project = state.projects.find(
-                project => project.id === action.payload
-            );
+            const project = find(state.projects, { 
+                id: action.payload 
+            }); 
             state.activeProject = project;
         }
     }
