@@ -58,14 +58,17 @@ const TableUploads = (props) => {
         }
     }
 
-    const updateProjectFiles = (file: ProjectFile): void => {
+    const updateProjectFiles = async (
+        file: ProjectFile
+    ): Promise<any> => {
         if (!project[propertyName]) {
             project[propertyName] = [file];
         } else {
             project[propertyName].push(file);
         }
 
-        dispatch(updateProject(project));
+        await dispatch(updateProject(project));
+        closeModal();
     }
 
     const handleFileUpload = (values: FileUpload): void => {
