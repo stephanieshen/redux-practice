@@ -71,20 +71,13 @@ const TableUploads = (props) => {
         closeModal();
     }
 
-    const handleFileUpload = (values: FileUpload): void => {
+    const handleFileUpload = async (values: FileUpload): Promise<any> => {
         const storageRef = storage.ref();
-        const fileRef = storageRef.child(values.filename);
-        fileRef.put(values.file).on('state_changed', () => {}, 
-        () => {
-            alert('error uploading');
-        }, () => {
-            storage.ref().child(values.filename)
-                .getDownloadURL()
-                .then((url) => {
-                    const file = createProjectFile(values.filename, url);
-                    updateProjectFiles(file);
-                })
-        });
+        const fileRef = storageRef.child(`${uuid()}-${values.filename}`);
+        const uploadTask = await fileRef.put(values.file);
+        const url = await uploadTask.ref.getDownloadURL();
+        const file = createProjectFile(values.filename, url);
+        updateProjectFiles(file);
     }
 
     const viewFile = (file: ProjectFile): void => {
