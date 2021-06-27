@@ -10,8 +10,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDownload, faEye, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
+import { findIndex } from 'lodash';
 
 import Button from '../Button/Button';
 import ModalComponent from '../Modal/Modal';
@@ -83,6 +84,21 @@ const TableUploads = (props) => {
         })
     }
 
+    const viewFile = (file: ProjectFile): void => {
+        window.open(file.fileUrl);
+    }
+
+    const deleteFile = (file: ProjectFile): void => {
+        const fileRef = storage.refFromURL(file.fileUrl);
+        fileRef.delete().then(() => {
+            const index = findIndex(project[propertyName], { id: file.id });
+            project[propertyName].splice(index, 1);
+            dispatch(updateProject(project));
+        }).catch(() => {
+            alert('error deleting file');
+        });
+    }
+
 
     return (
         <>
@@ -118,17 +134,20 @@ const TableUploads = (props) => {
                                 </TableCell>
                                 <TableCell align="right">
                                     <div className={styles.ActionButton}>
-                                        <Button type="button" classes={['Secondary', 'Small']}>
+                                        <Button
+                                            type="button"
+                                            classes={['Secondary', 'Small']}
+                                            clicked={() => viewFile(file)}
+                                        >
                                             <FontAwesomeIcon icon={faEye} />
                                         </Button>
                                     </div>
                                     <div className={styles.ActionButton}>
-                                        <Button type="button" classes={['Secondary', 'Small']}>
-                                            <FontAwesomeIcon icon={faDownload} />
-                                        </Button>
-                                    </div>
-                                    <div className={styles.ActionButton}>
-                                        <Button type="button" classes={['Secondary', 'Small']}>
+                                        <Button
+                                            type="button"
+                                            classes={['Secondary', 'Small']}
+                                            clicked={() => deleteFile(file)}
+                                        >
                                             <FontAwesomeIcon icon={faTrash} />
                                         </Button>
                                     </div>
